@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI web</title>
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Coding Assistant</h1>
+    <form id="form">
+        <label for="bar">Enter prompt:</label><br>
+        <input type="text" id="userInput" name="userInput" placeholder="Enter something" required>
+        <input type="submit">
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch("/process-form", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.message;
+            });
+        });
+    </script>
+</body>
+</html>
